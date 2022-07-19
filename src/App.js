@@ -25,7 +25,7 @@ function App() {
       const todo = {
         id: Date.now(),
         title: todoTitle,
-        complete: false
+        isCompleted: false
       }
       setTodoList([todo, ...todoList])
       setTodoTitle("")
@@ -57,10 +57,10 @@ function App() {
   }
 
   const taskComplete = (todo) => {
-    if (!todo.complete){
-      todo.complete = true;
+    if (!todo.isCompleted){
+      todo.isCompleted = true
     }else{
-      todo.complete = false;
+      todo.isCompleted = false
     }
     setTodoList([...todoList])
   }
@@ -79,8 +79,8 @@ function App() {
         <form className="form">
           <input value={todoTitle} type="text" name="todoTitle" id="" placeholder="New task" 
             onChange={(e) => setTodoTitle(e.target.value)}/>
-          <button className='formBtn' onClick={(e) => isEditableState === true? updateTodo(e) : addToTodoList(e)}>
-            {isEditableState === true? 
+          <button className='formBtn' onClick={(e) => isEditableState? updateTodo(e) : addToTodoList(e)}>
+            {isEditableState? 
               (<i className="fa-solid fa-arrows-rotate"></i>) : 
               (<i className="fa-solid fa-plus"></i>)
             }
@@ -96,16 +96,14 @@ function App() {
         <ul className="todoList">
           {todoList.map((todo) => (
             <li className="todoList__item">
-              {todo.complete? 
+              {todo.isCompleted? 
                 (<input type="checkBox" onClick={() => taskComplete(todo)} checked/>) : 
                 (<input type="checkBox" onClick={() => taskComplete(todo)}/>)
               }
-
               <span className="todoTitle" >
-                {todo.complete === true? <del>{todo.title}</del> : todo.title}   
+                {todo.isCompleted? <del>{todo.title}</del> : todo.title}   
               </span>
-
-              {todo.complete? 
+              {todo.isCompleted? 
                 (<small>Completed</small>) : 
                 (<div>
                   <button className='editBtn' onClick={() => editHandler(todo)}>
@@ -119,12 +117,13 @@ function App() {
         </ul>
         {/* --------Todo list start-------- */}
 
-        {todoList.length > 1 ? 
+        {/* -------- Todo list footer start------- */}
+        {todoList.length > 0 ? 
           (<div className='todoFooter'>
             <button className='clearBtn' onClick={() => setTodoList([])}>Clear All</button>
           </div>) : ('')
         }
-
+        {/* -------- Todo list footer end-------- */}
       </div>
     </div>
   );
