@@ -2,29 +2,35 @@ import './App.css';
 import {useState} from 'react'
 
 function App() {
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "September", "Oct", "Nov", "Dec"];
-  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "September", "Oct", "Nov", "Dec"]
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   const date = new Date()
   const [todoTitle, setTodoTitle] = useState("")
   const [todoList, setTodoList] = useState([])
   const [editableTodo, setEditableTodo] = useState(null)
   const [isEditableState, setEditableState] = useState(false)
-  // const [errorMassage, setErrorMassage] = useState(undefined)
+  const [errorMassage, setErrorMassage] = useState("")
+
+  const showMassage = (string) => {
+    setErrorMassage(string)
+    setTimeout(() => {
+      setErrorMassage("")
+    }, 4000)
+    clearTimeout()
+  }
 
   const addToTodoList = (event) =>{
+    event.preventDefault()
     if (todoTitle){
-      event.preventDefault()
-
       const todo = {
         id: Date.now(),
         title: todoTitle,
         complete: false
       }
-
       setTodoList([todo, ...todoList])
       setTodoTitle("")
     }else{
-      // setErrorMassage("Task title is empty...!")
+      showMassage("Task title is empty...!")
     }
   }
 
@@ -35,14 +41,14 @@ function App() {
   }
 
   const updateTodo = (event) => {
+    event.preventDefault()
     if (todoTitle){
-      event.preventDefault()
       editableTodo.title = todoTitle
       setTodoTitle("")
       setEditableState(false)
       setEditableTodo(null)
     }else{
-      // setErrorMassage("Task title is empty...!")
+      showMassage("Task title is empty...!")
     } 
   }
 
@@ -71,25 +77,20 @@ function App() {
 
         {/* --------Todo form start-------- */}
         <form className="form">
-          <input value={todoTitle} type="text" name="todoTitle" id="" placeholder="Add new task" 
+          <input value={todoTitle} type="text" name="todoTitle" id="" placeholder="New task" 
             onChange={(e) => setTodoTitle(e.target.value)}/>
-          <button onClick={(e) => isEditableState === true? updateTodo(e) : addToTodoList(e)}>
+          <button className='formBtn' onClick={(e) => isEditableState === true? updateTodo(e) : addToTodoList(e)}>
             {isEditableState === true? 
               (<i className="fa-solid fa-arrows-rotate"></i>) : 
               (<i className="fa-solid fa-plus"></i>)
             }
           </button>
+          {errorMassage? 
+            (<div className='errorText'> <p>{errorMassage}</p></div>)
+               : (<span></span>)
+          }
         </form>
         {/* --------Todo form end-------- */}
-
-        {/* --------Error massage start-------- */}
-        {/* {errorMassage !== undefined? 
-          (<div className='errorText'>
-            <p>{errorMassage}</p>
-          </div>) : (<span></span>)
-        } */}
-        
-        {/* --------Error massage end-------- */}
 
         {/* --------Todo list start-------- */}
         <ul className="todoList">
