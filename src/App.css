@@ -1,38 +1,116 @@
-.App {
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+}
+
+.App{
+  max-width: 500px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 4px 4px 20px -1px rgba(0,0,0,0.6);
+}
+
+.todoHeader{
+  text-align: center;
+  padding: 20px 20px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: rgb(97, 97, 209);
+}
+
+.form{
+  text-align: center;
+  padding: 20px 20px;
+}
+
+.form input, .form button{
+  font-size: 1.1rem;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  color: black;
+  border-bottom: 2px solid rgb(97, 97, 209);
+}
+
+@media (max-width:350px){
+  .form input{
+    width: 80%;
+  }
+}
+
+.form button{
+  border-bottom: none;
+  background-color: rgba(101, 186, 186, 0.855);
+  border-radius: 50%;
+}
+
+.form input:focus{
+  outline: none;
+}
+
+.form button:hover{
+  background-color: rgba(101, 186, 186, 0.395);
+}
+
+.todoList{
+  list-style-type: none;
+  padding: 10px 20px;
+}
+
+.todoList__item{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 0px;
+}
+
+.todoTitle{
+  font-size: 1.2rem;
+  color: black;
+}
+
+.editBtn, .delBtn{
+  border: none;
+  background: transparent;
+  padding: 5px 8px;
+  color: gray;
+}
+
+.todoFooter{
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.clearBtn{
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
   color: white;
+  background-color: rgb(65, 65, 211);
+  padding: 8px 20px;
+  border-radius: 20px;
+  position: relative;
+  top: 18px;
 }
 
-.App-link {
-  color: #61dafb;
+.clearBtn:hover{
+  background-color: rgb(96, 96, 199);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.errorText{
+  text-align: center;
+  color: red;
+  border: 1px solid red;
+  margin: 0px 20px;
+  padding: 4px 0px;
+  font-size: .8rem;
 }
